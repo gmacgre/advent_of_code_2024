@@ -5,7 +5,6 @@ input = sys.stdin
 
 while True:
     line = input.readline()
-    #interpret line
     if line == "":
         break
 
