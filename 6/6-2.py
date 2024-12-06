@@ -39,9 +39,8 @@ def getStep(loc, direction):
         case Direction.LEFT:
             return loc[0], loc[1] - 1
 
-def runPath(path, loc):
-
-    direction = Direction.UP
+def runPath(path, loc, dir):
+    direction = dir
     loc = (loc[0], loc[1], direction)
     visited = set()
     visited.add(loc)
@@ -62,15 +61,28 @@ def runPath(path, loc):
 count = 0
 
 p1_start = datetime.now()
-
-for i in range(len(lines)):
-    for j in range(len(lines[0])):
-        if lines[i][j] == '^' or lines[i][j] == '#':
-            continue
-        lines[i][j] = '#'
-        if runPath(lines, loc):
+direction = Direction.UP
+start_y, start_x = loc[0], loc[1]
+visited = set()
+while True:
+    newY, newX = getStep(loc, direction)
+    if not inGrid((newY, newX), lines):
+        break
+    if lines[newY][newX] == '^':
+        loc = (newY, newX)
+        continue
+    if (newY, newX) in visited:
+        loc = (newY, newX)
+        continue
+    if lines[newY][newX] == '.':
+        lines[newY][newX] = '#'
+        if runPath(lines, (start_y, start_x), Direction.UP):
             count += 1
-        lines[i][j] = '.'
+        loc = (newY, newX)
+        visited.add(loc)
+        lines[newY][newX] = '.'
+    else:
+        direction = Direction.NEW_DIRECTION[direction]
 
 p1_end = datetime.now()
-print(f'Found XXXX in {p1_end - p1_start}')
+print(f'Found {count} in {p1_end - p1_start}')
