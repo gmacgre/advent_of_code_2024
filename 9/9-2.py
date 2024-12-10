@@ -45,10 +45,13 @@ for item in items:
     if isFile:
         id += 1
 
-for i in range(len(files) - 1, 0, -1):
+files.reverse()
+for i in range(len(files)):
     toMove = files[i]
     minSize = toMove.size
     for i in range(len(gaps)):
+        if gaps[i].idx > toMove.idx:
+            break
         if gaps[i].size < minSize:
             continue
 
@@ -68,5 +71,3 @@ for idx in range(len(memory)):
     idx += 1
 
 print(total)
-
-# There is a bug here somewhere, I don't know where to fix it for now :(
