@@ -8,7 +8,6 @@ stones = input.read().split(' ')
 # Else -> * 2024
 
 for i in range(25):
-    print(f'blink {i}')
     newStones = []
     for stone in stones:
         if stone == '0':
