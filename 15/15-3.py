@@ -60,6 +60,7 @@ def moveBot(ware, bot, dir):
     ware[cursor[0]][cursor[1]] = hold
 
 step = 1
+length = len(moves)
 for character in moves:
     if character == '\n':
         continue
@@ -68,7 +69,7 @@ for character in moves:
         moveBot(warehouse, bot, dir)
         bot = (bot[0] + dir[0], bot[1] + dir[1])
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(f'Step {step}: {character}')
+    print(f'Step {step}: {character} (of {length})')
     print('----------------------------------------------------------')
     printWarehouse(warehouse)
     print('----------------------------------------------------------')
