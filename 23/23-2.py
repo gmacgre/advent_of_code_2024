@@ -35,11 +35,15 @@ def buildClique(sub_clique, network, netSet):
         return buildClique(new_clique, network, netSet)
     return new_clique 
 
+reviewed = set()
 largest_clique = None
 for grouping in possible:
+    if grouping[0] in reviewed:
+        continue
     clique = buildClique(list(grouping), network, netSet)
+    for host in clique:
+        reviewed.add(host)
     if largest_clique is None or len(largest_clique) < len(clique):
-        print(clique)
         largest_clique = clique
 largest_clique.sort()
 print(','.join(largest_clique))
