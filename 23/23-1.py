@@ -16,7 +16,7 @@ for conn in lines:
         if link in network[dest]:
             possible.append((link, src, dest))
 
-final = list(filter(lambda x: x[0].startswith('t') or x[1].startswith('t') or x[2].startswith('t'), possible))
+final = list(filter(lambda x: any(list(map(lambda y: y.startswith('t'), x))), possible))
 
 print(len(final))
     
